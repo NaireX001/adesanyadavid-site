@@ -8,17 +8,25 @@ const cur=document.createElement('div');cur.className='curtain';
 cur.innerHTML='<div class="cv"></div><div class="cl"></div><div class="cw gold"></div>';document.body.appendChild(cur);
 requestAnimationFrame(()=>requestAnimationFrame(()=>cur.classList.add('hide')));
 addEventListener('pageshow',e=>{if(e.persisted){cur.classList.remove('go');cur.classList.add('hide')}});
+const norm=p=>{p=(p||'/').replace(/\/index\.html$/,'/').replace(/\.html$/,'');return p===''?'/':p};
+function goTo(id,instant){const t=document.getElementById(id);if(!t)return;
+  const run=()=>t.scrollIntoView({behavior:instant?'auto':'smooth',block:'start'});
+  if(document.body.classList.contains('locked')){const iv=setInterval(()=>{if(!document.body.classList.contains('locked')){clearInterval(iv);setTimeout(run,60)}},100)}else run()}
 document.addEventListener('click',e=>{
-  const a=e.target.closest('a[href]');if(!a)return;
+  const a=e.target.closest('a[href]');if(!a||a.target==='_blank'||e.metaKey||e.ctrlKey)return;
   const h=a.getAttribute('href');
-  if(!/\.html(#.*)?$/.test(h)||a.target==='_blank'||e.metaKey||e.ctrlKey)return;
-  const here=location.pathname.split('/').pop()||'index.html';
-  if(h.split('#')[0]===here){return}
+  if(h.startsWith('#')){e.preventDefault();if(h==='#top'){scrollTo({top:0,behavior:'smooth'});return}goTo(h.slice(1));const mm=document.querySelector('.mmenu.open');if(mm){mm.classList.remove('open');const b=document.querySelector('.burger');if(b)b.textContent='Menu'}return}
+  if(!h.startsWith('/')||h.startsWith('//'))return;
   e.preventDefault();
+  const go=a.dataset.go;
+  if(norm(h)===norm(location.pathname)){if(go)goTo(go,true);else scrollTo({top:0,behavior:'smooth'});return}
+  try{if(go)sessionStorage.setItem('go',go)}catch(_){}
   cur.querySelector('.cw').textContent=a.dataset.label||a.textContent.trim().replace(/[→↑]/g,'');
   cur.classList.remove('hide');cur.classList.add('go');
   setTimeout(()=>{location.href=h},780);
 });
+try{const g=sessionStorage.getItem('go');if(g){sessionStorage.removeItem('go');addEventListener('load',()=>goTo(g,true))}}catch(_){}
+if(location.hash){const id=location.hash.slice(1);history.replaceState(null,'',location.pathname);addEventListener('load',()=>goTo(id,true))}
 
 /* grain + cursor */
 if(!$('.grain')){const g=document.createElement('div');g.className='grain';document.body.appendChild(g)}
