@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Services · Adesanya David</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&family=Roboto:wght@300;400;500&family=Raleway:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css"><style>
+.svhero{min-height:auto;padding-top:170px}
+.sidx{margin-top:50px;border-top:1px solid var(--line);max-width:760px}
+.sidx a{display:grid;grid-template-columns:60px 1fr auto;align-items:center;padding:16px 0;border-bottom:1px solid var(--line);font-family:var(--serif);font-size:clamp(22px,2vw,30px);transition:padding .4s,color .3s}
+.sidx a:hover{padding-left:16px;color:var(--gold2)}
+.sidx .mono{color:var(--gold)}.sidx i{font-style:normal;color:var(--mute)}
+.svc{display:grid;grid-template-columns:minmax(180px,.6fr) 1.4fr;gap:clamp(20px,5vw,80px);padding:80px 0;border-top:1px solid var(--line)}
+.svc:first-child{border-top:0;padding-top:0}
+.svc-side>*{position:sticky;top:120px}
+.svc-side{display:flex;flex-direction:column;gap:16px}
+.svc-side .n{display:block;font-family:var(--serif);font-style:italic;font-size:clamp(100px,13vw,200px);line-height:.8;color:transparent;-webkit-text-stroke:1px rgba(240,180,60,.6)}
+.svc-side .svc-t{top:calc(120px + clamp(84px,11vw,170px));color:var(--gold2)}
+.svc h2{font-family:var(--serif);font-weight:500;font-size:clamp(38px,4.6vw,74px);line-height:1;margin-bottom:26px}
+.svc-p{color:var(--dim);font-size:17px;line-height:1.75;font-weight:300;max-width:720px;margin-bottom:14px}
+.svc-inc{margin-top:34px}.svc-inc h6{color:var(--mute);font-weight:400;margin-bottom:10px}
+.svc-inc ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;column-gap:30px}
+.svc-inc li{padding:12px 0;border-bottom:1px solid var(--line);display:flex;gap:12px}
+.svc-inc li::before{content:"✦";color:var(--gold);font-size:11px;padding-top:3px}
+.svc h2{max-width:900px}
+.spec-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(30px,6vw,100px);align-items:start}
+.tags{display:flex;flex-wrap:wrap;gap:10px;align-content:flex-start}
+.tag{border:1px solid var(--line);border-radius:999px;padding:12px 18px;font-size:14px;color:var(--silver);transition:.3s}
+.tag:hover{border-color:var(--gold);color:var(--gold2)}
+.motto{margin-top:90px;font-family:var(--serif);font-size:clamp(30px,3.8vw,60px);line-height:1.1;text-align:center;max-width:1100px;margin-left:auto;margin-right:auto}
+.motto em{font-weight:400}
+.fine{color:var(--mute);font-size:13px;font-style:italic}
+.svc-cols{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;margin-top:36px}
+.svc-cols h6{color:var(--mute);font-weight:400;margin-bottom:14px}
+.svc-cols ul{list-style:none}
+.svc-cols li{padding:12px 0;border-bottom:1px solid var(--line);display:flex;gap:12px}
+.svc-cols li::before{content:"✦";color:var(--gold);font-size:11px;padding-top:3px}
+.svc-cols p{color:var(--silver);font-family:var(--serif);font-size:24px;line-height:1.35}
+.ph2{font-family:var(--serif);font-weight:500;font-size:clamp(40px,5.2vw,84px);line-height:.98;margin-bottom:60px}
+.ph2 em{font-weight:400}
+.ptrack{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:22px}
+.pline{position:absolute;left:0;right:0;top:7px;height:1px;background:var(--line)}
+.pline i{position:absolute;inset:0;background:linear-gradient(90deg,var(--goldd),var(--gold2));transform-origin:left;transform:scaleX(var(--pp,0))}
+.pstep{position:relative;padding-top:40px;opacity:.25;transition:opacity .6s}
+.pstep.on{opacity:1}
+.pstep .dot{position:absolute;top:0;left:0;width:15px;height:15px;border-radius:50%;border:1px solid var(--gold);background:var(--ink);transition:.5s}
+.pstep.on .dot{background:var(--gold);box-shadow:0 0 18px var(--gold)}
+.pstep .mono{color:var(--gold2)}
+.pstep h4{font-family:var(--serif);font-weight:500;font-size:24px;line-height:1.1;margin:12px 0 10px}
+.pstep p{color:var(--dim);font-size:14px;line-height:1.65;font-weight:300}
+.faq-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:clamp(30px,6vw,100px)}
+.fq{border-top:1px solid var(--line)}.fq:last-child{border-bottom:1px solid var(--line)}
+.fq summary{list-style:none;display:flex;justify-content:space-between;gap:20px;padding:26px 0;cursor:pointer;font-family:var(--serif);font-size:clamp(22px,2vw,30px)}
+.fq summary::-webkit-details-marker{display:none}
+.fq summary i{font-style:normal;color:var(--gold);transition:transform .4s}
+.fq[open] summary i{transform:rotate(45deg)}
+.fa{padding:0 0 26px;max-width:680px}.fa p{color:var(--dim);line-height:1.75;margin-bottom:10px}.fa .draft{margin-left:0}
+.end-p{color:var(--dim);max-width:560px;line-height:1.75;font-weight:300;margin:-10px auto 34px}
+@media (max-width:900px){.svc,.svc-cols,.faq-grid,.spec-grid,.svc-inc ul{grid-template-columns:1fr}.svc-side>*{position:static}.ptrack{grid-template-columns:1fr}.pline{display:none}}
+</style>
+</head><body id="top">
+<header class="nav">
+  <a class="brand silver" href="index.html" data-label="Home">Adesanya David</a>
+  <nav class="nl"><a href="index.html#handover" class=""><span data-t="What I Solve">What I Solve</span></a><a href="about.html" class=""><span data-t="About">About</span></a><a href="services.html" class="here"><span data-t="Services">Services</span></a><a href="books.html" class=""><span data-t="Books">Books</span></a></nav>
+  <a class="ncta" href="#start">Start Your Book</a>
+  <button class="burger" type="button">Menu</button>
+</header>
+<div class="mmenu"><a href="index.html">Home<span>00</span></a><a href="index.html#handover">What I Solve<span>01</span></a><a href="about.html">About<span>02</span></a><a href="services.html">Services<span>03</span></a><a href="books.html">Books<span>04</span></a><a href="#contact">Contact<span>05</span></a></div>
+<main>
+
+<section class="phero svhero">
+  <div class="orbit"><svg viewBox="0 0 400 300" aria-hidden="true"><ellipse cx="200" cy="150" rx="195" ry="70" fill="none" stroke="url(#og)" stroke-width="1.2" transform="rotate(-16 200 150)"/><defs><linearGradient id="og" x1="0" x2="1"><stop offset="0" stop-color="#b97a12" stop-opacity="0"/><stop offset=".55" stop-color="#ffd27a"/><stop offset="1" stop-color="#f0b43c" stop-opacity=".1"/></linearGradient></defs></svg></div>
+  <div class="copy" style="max-width:min(940px,100%)">
+    <p class="eyebrow mono rv">Services</p>
+    <h1 class="split"><span class="ln"><span class="silver">Everything your book</span></span><span class="ln"><span><span class="silver">needs,</span> <em class="gold">in one place.</em></span></span></h1>
+    <p class="lead rv">From developing an early idea to preparing a finished manuscript for publication, I provide support across the key stages of the book journey.</p>
+    <p class="lead rv" style="margin-top:14px">You can work with me on a single service or get support across multiple stages, depending on what your book needs.</p>
+    <nav class="sidx rv"><a href="#s1"><span class="mono">01</span>Book Planning & Manuscript Development<i>→</i></a><a href="#s2"><span class="mono">02</span>Professional Editing & Manuscript Review<i>→</i></a><a href="#s3"><span class="mono">03</span>Book Cover Design & Illustration<i>→</i></a><a href="#s4"><span class="mono">04</span>Book Formatting & Production<i>→</i></a><a href="#s5"><span class="mono">05</span>Publishing & Distribution<i>→</i></a><a href="#s6"><span class="mono">06</span>Author Branding, Marketing & Launch Support<i>→</i></a></nav>
+  </div>
+</section>
+<section class="blk svcs"><article class="svc" id="s1"><div class="svc-side"><span class="n">01</span><span class="mono svc-t">Planning & Development</span></div>
+  <div class="svc-main"><h2 class="rv"><span class="silver">Book Planning & Manuscript Development</span></h2><p class="svc-p rv">From an early idea to a structured manuscript, I help authors develop their concepts, organize their thoughts, establish chapter structures, and move toward a complete book.</p>
+  <div class="svc-inc rv"><h6 class="mono">Includes</h6><ul><li>Book concept development</li><li>Research and outlining</li><li>Manuscript planning</li><li>Chapter development</li><li>Ghostwriting and co-writing coordination</li><li>Writing guidance</li></ul></div></div></article><article class="svc" id="s2"><div class="svc-side"><span class="n">02</span><span class="mono svc-t">Editing & Review</span></div>
+  <div class="svc-main"><h2 class="rv"><span class="silver">Professional Editing & Manuscript Review</span></h2><p class="svc-p rv">A good story deserves thoughtful refinement. I help authors improve the clarity, structure, consistency, and overall quality of their manuscripts while preserving their original voice.</p>
+  <div class="svc-inc rv"><h6 class="mono">Includes</h6><ul><li>Developmental editing</li><li>Line editing</li><li>Copyediting</li><li>Proofreading</li><li>Beta reading and manuscript feedback</li><li>Fact-checking and consistency reviews</li></ul></div></div></article><article class="svc" id="s3"><div class="svc-side"><span class="n">03</span><span class="mono svc-t">Cover Design & Illustration</span></div>
+  <div class="svc-main"><h2 class="rv"><span class="silver">Book Cover Design & Illustration</span></h2><p class="svc-p rv">Create a visual identity that reflects your book’s message, genre, and intended audience.</p>
+  <div class="svc-inc rv"><h6 class="mono">Includes</h6><ul><li>Book cover concept development</li><li>Front, spine, and back cover design</li><li>Ebook cover design</li><li>Illustrations</li><li>Children’s book illustrations</li><li>Promotional book graphics</li></ul></div></div></article><article class="svc" id="s4"><div class="svc-side"><span class="n">04</span><span class="mono svc-t">Formatting & Production</span></div>
+  <div class="svc-main"><h2 class="rv"><span class="silver">Book Formatting & Production</span></h2><p class="svc-p rv">Prepare your manuscript for a professional reading experience across digital and printed formats.</p>
+  <div class="svc-inc rv"><h6 class="mono">Includes</h6><ul><li>Interior book formatting</li><li>Print-ready layout</li><li>Kindle formatting</li><li>EPUB preparation</li><li>Typography and page design</li><li>Final production checks</li></ul></div></div></article><article class="svc" id="s5"><div class="svc-side"><span class="n">05</span><span class="mono svc-t">Publishing & Distribution</span></div>
+  <div class="svc-main"><h2 class="rv"><span class="silver">Publishing & Distribution</span></h2><p class="svc-p rv">Navigate the technical and administrative requirements of publishing and make your book available through suitable publishing and distribution channels.</p>
+  <div class="svc-inc rv"><h6 class="mono">Includes</h6><ul><li>Publishing preparation</li><li>ISBN and metadata guidance</li><li>Amazon KDP publishing support</li><li>Ebook and paperback setup</li><li>Print-on-demand preparation</li><li>Distribution guidance</li></ul></div></div></article><article class="svc" id="s6"><div class="svc-side"><span class="n">06</span><span class="mono svc-t">Branding, Marketing & Launch</span></div>
+  <div class="svc-main"><h2 class="rv"><span class="silver">Author Branding, Marketing & Launch Support</span></h2><p class="svc-p rv">Publishing your book is an important milestone. Helping readers discover it is another. I support authors in building their visibility and preparing effective promotional campaigns.</p>
+  <div class="svc-inc rv"><h6 class="mono">Includes</h6><ul><li>Author website development</li><li>Author branding</li><li>Book launch planning</li><li>Social media marketing</li><li>Email marketing</li><li>Book promotional graphics</li><li>Book trailers and promotional videos</li><li>Author platform development</li><li>Launch campaign coordination</li></ul></div></div></article></section>
+<section class="blk spec">
+  <div class="spec-grid">
+    <div><p class="eyebrow mono rv">Additional specialist support</p><h2 class="ph2 rv" style="margin-bottom:24px"><span class="silver">When your project</span> <em class="gold">needs more.</em></h2><p class="svc-p rv">Some projects require services beyond the six main categories. Where appropriate, I can also coordinate specialist support for:</p></div>
+    <div class="tags rv"><span class="tag">Audiobook production</span><span class="tag">Audiobook narration</span><span class="tag">Book translation</span><span class="tag">Literary consultation</span><span class="tag">Publishing administration</span><span class="tag">Copyright and legal referrals</span><span class="tag">Book distribution strategy</span><span class="tag">Public relations</span><span class="tag">Media and interview preparation</span><span class="tag">Author coaching</span><span class="tag">Project management</span></div>
+  </div>
+  <p class="motto rv"><span class="silver">One partner. Multiple areas of expertise.</span> <em class="gold">A clear path from manuscript to publication.</em></p>
+</section>
+<section class="blk borders">
+  <div class="spec-grid">
+    <div><p class="eyebrow mono rv">Publishing beyond borders</p><h2 class="ph2 rv"><span class="silver">A publishing approach</span> <em class="gold">that fits your book.</em></h2></div>
+    <div>
+      <p class="svc-p rv">Every book deserves a publishing approach that suits its format, audience, and distribution goals.</p>
+      <p class="svc-p rv">I help authors understand their publishing options and coordinate the preparation and submission of their books to suitable publishing platforms and distribution channels.</p>
+      <p class="svc-p rv">Whether you’re considering independent publishing, digital distribution, or print-on-demand, we’ll identify an approach that aligns with your publishing goals.</p>
+      <p class="fine rv">Platform availability and publishing requirements will be confirmed for each project.</p>
+    </div>
+  </div>
+</section>
+<section class="blk proc">
+  <p class="eyebrow mono rv">How we work together</p>
+  <h2 class="ph2 rv"><span class="silver">Six steps from first conversation</span> <em class="gold">to delivery.</em></h2>
+  <div class="ptrack"><div class="pline"><i></i></div><div class="pstep"><span class="dot"></span><span class="mono">01</span><h4>Discovery & Consultation</h4><p>We begin with a conversation about your book, your vision, your current progress, and the outcome you want to achieve.</p></div><div class="pstep"><span class="dot"></span><span class="mono">02</span><h4>Assessment & Project Planning</h4><p>I assess your project’s requirements, identify the services it needs, and develop a clear roadmap outlining the scope, deliverables, estimated timeline, and costs.</p></div><div class="pstep"><span class="dot"></span><span class="mono">03</span><h4>Agreement & Project Commencement</h4><p>Once the scope and terms are agreed upon, we formalize the arrangement, confirm the payment schedule, and establish the project’s milestones.</p></div><div class="pstep"><span class="dot"></span><span class="mono">04</span><h4>Development & Creative Execution</h4><p>The work begins. Whether it involves writing, editing, research, design, or other specialist services, each stage is coordinated according to the agreed project plan.</p></div><div class="pstep"><span class="dot"></span><span class="mono">05</span><h4>Review & Final Preparation</h4><p>We review the completed work, address agreed revisions, conduct final quality checks, and prepare the necessary files for publication.</p></div><div class="pstep"><span class="dot"></span><span class="mono">06</span><h4>Publishing & Delivery</h4><p>Your book moves into the publishing stage. I coordinate the agreed publishing preparation, submission, and delivery requirements so your work is ready for its intended readers.</p></div></div>
+  <p class="fine rv" style="margin-top:50px">Every project follows a process suited to its individual requirements.</p>
+</section>
+<section class="blk faq">
+  <div class="faq-grid"><div><p class="eyebrow mono rv">FAQ</p><h2 class="ph2 rv"><span class="silver">Frequently asked</span> <em class="gold">questions.</em></h2></div><div><details class="fq rv"><summary><span>How much does it cost to publish a book?</span><i>+</i></summary><div class="fa"><p>There is no single price for every book. Costs depend on the manuscript’s condition, the services required, the book’s length, and the level of support involved. After understanding your project, I’ll provide a clear quotation based on its specific needs.</p></div></details><details class="fq rv"><summary><span>Will I retain ownership of my book?</span><i>+</i></summary><div class="fa"><p>Yes. Authors retain ownership of their original manuscripts, copyrights, and creative work. I provide services and coordinate professional support without claiming ownership of an author’s work. Any specific permissions or licensing arrangements will be clearly agreed upon in writing before work begins.</p></div></details><details class="fq rv"><summary><span>How long does the entire process take?</span><i>+</i></summary><div class="fa"><p>The timeline depends on the nature of the project, manuscript length, required services, and revision stages. I’ll provide an estimated timeline and milestones after assessing your book.</p></div></details><details class="fq rv"><summary><span>Can I work with you from outside Nigeria?</span><i>+</i></summary><div class="fa"><p>Absolutely. I’m based in Abeokuta, Nigeria, and work with authors internationally. Projects can be coordinated remotely through online communication and digital collaboration.</p></div></details><details class="fq rv"><summary><span>Can I hire you for just one service?</span><i>+</i></summary><div class="fa"><p>Certainly. You can engage me for a specific service, whether it’s manuscript development, editing, cover design, formatting, or publishing assistance. You don’t have to commit to the entire publishing process.</p></div></details><details class="fq rv"><summary><span>Can you help me write my book from scratch?</span><i>+</i></summary><div class="fa"><p>Yes. Depending on your needs, I can help coordinate book planning, writing guidance, ghostwriting, and co-writing support to develop your ideas into a complete manuscript.</p></div></details><details class="fq rv"><summary><span>Do I need a finished manuscript before contacting you?</span><i>+</i></summary><div class="fa"><p>Not at all. You can approach me with a simple idea, an outline, scattered notes, an incomplete manuscript, or a finished draft. We’ll establish what your project needs and determine the best way forward.</p></div></details><details class="fq rv"><summary><span>Do you work with all genres?</span><i>+</i></summary><div class="fa"><p>I welcome projects across a wide range of genres, including fiction, romance, business, memoir, children’s books, faith-based literature, poetry, self-help, and more. The specific services available will depend on your project’s requirements.</p></div></details><details class="fq rv"><summary><span>How do I get started?</span><i>+</i></summary><div class="fa"><p>Simply reach out through the contact form and tell me about your book. Share what you’re working on, where you currently stand, and what you’d like to achieve. I’ll review your enquiry and get back to you with the appropriate next steps.</p></div></details></div></div>
+</section>
+<section class="end" id="start">
+  <p class="eyebrow mono rv">Your Turn</p>
+  <h3 class="rv"><span class="silver">Not sure what</span><br><em class="gold">your book needs?</em></h3>
+  <p class="end-p rv">You don’t need to know every publishing term or understand every stage before getting started. Tell me about your book, and I’ll help you identify the next practical step.</p>
+  <a class="btn rv" href="#contact">Let’s Talk About Your Book →</a>
+</section>
+</main>
+<footer class="foot" id="contact">
+  <div class="cform-wrap">
+    <div class="cform-l">
+      <p class="eyebrow mono rv">Contact</p>
+      <h3 class="cform-h rv"><span class="silver">Tell me about</span> <em class="gold">your book.</em></h3>
+      <p class="rv">Share what you’re working on, where you currently stand, and what you’d like to achieve. I’ll review your enquiry and get back to you with the next steps.</p>
+      <p class="reply rv"><span class="dot-live"></span>I usually reply within 3–4 hours</p>
+    </div>
+    <form class="cform rv" id="cform" onsubmit="return false">
+      <label><span class="mono">Your name</span><input name="name" required placeholder="Full name"></label>
+      <label><span class="mono">Email</span><input name="email" type="email" placeholder="you@example.com"></label>
+      <label><span class="mono">Where is your book now?</span><select name="stage"><option>Just an idea</option><option>Notes or an outline</option><option>Unfinished manuscript</option><option>Finished draft</option><option>Ready to publish</option></select></label>
+      <label><span class="mono">What do you need?</span><select name="need"><option>Planning & Development</option><option>Editing & Review</option><option>Cover Design & Illustration</option><option>Formatting & Production</option><option>Publishing & Distribution</option><option>Branding, Marketing & Launch</option><option>Not sure yet</option></select></label>
+      <label class="full"><span class="mono">About your book</span><textarea name="msg" rows="4" placeholder="Title, genre, length, and anything else I should know"></textarea></label>
+      <div class="full cform-send"><a class="btn" id="sendWa" href="https://wa.me/2349077716599" target="_blank" rel="noopener">Send on WhatsApp →</a><a class="btn btn-o" id="sendEm" href="mailto:adesanyadavid25@gmail.com" target="_blank" rel="noopener">Send by email</a></div>
+      <p class="full cform-note">Your message opens in WhatsApp or your email app, ready to send.</p>
+    </form>
+  </div>
+  <div class="foot-word rv"><span class="silver">Adesanya</span> <em class="gold">David</em></div>
+  <div class="foot-grid">
+    <div><p class="big">Have a book in you, or one already taking shape on paper?</p><p style="margin-top:14px">Tell me where it stands. Let’s talk about what comes next.</p></div>
+    <div><h6>Pages</h6><a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a><a href="books.html">Books</a><a href="#contact">Contact</a></div>
+    <div><h6>Contact</h6><a href="mailto:adesanyadavid25@gmail.com" target="_blank" rel="noopener">adesanyadavid25@gmail.com</a><a href="https://wa.me/2349077716599" target="_blank" rel="noopener">WhatsApp: +234 907 771 6599</a><a href="tel:+2349155782441">Phone: +234 915 578 2441</a></div>
+    <div><h6>Based in</h6><p>Abeokuta, Nigeria</p><p>Local time <span data-clock>--:--</span> WAT</p><p>Working with authors worldwide</p></div>
+  </div>
+  <div class="foot-bot mono"><span>© Adesanya David. All rights reserved.</span><span>From First Draft to Published Book.</span><a href="#top">Back to top ↑</a></div>
+</footer>
+<script src="js/site.js"></script><script>
+(function(){const pr=document.querySelector('.ptrack'),st=[...document.querySelectorAll('.pstep')];
+function f(){const r=pr.getBoundingClientRect(),p=Math.min(1,Math.max(0,(innerHeight*.8-r.top)/(innerHeight*.6)));pr.style.setProperty('--pp',p);st.forEach((s,i)=>s.classList.toggle('on',p>=i/st.length+.02));requestAnimationFrame(f)}f()})();
+</script>
+</body></html>

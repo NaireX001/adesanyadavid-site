@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adesanya David · The Dive (Preview)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&family=Roboto:wght@300;400;500&family=Raleway:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#050505;--line:rgba(255,255,255,.09);--silver:#dcdde1;--dim:#9a9ba1;--mute:#6d6e73;--gold:#f0b43c;--gold2:#ffd27a;--goldd:#b97a12;
+--serif:"Cormorant Garamond",Georgia,serif;--sans:"Manrope",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;--pad:clamp(18px,4vw,64px)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--ink);color:var(--silver);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+body{overflow-x:hidden}
+body.locked{overflow:hidden}
+a{color:inherit;text-decoration:none}
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.gold{background:linear-gradient(100deg,var(--goldd),var(--gold2) 45%,var(--gold) 70%,var(--goldd));-webkit-background-clip:text;background-clip:text;color:transparent}
+.silver{background:linear-gradient(180deg,#fff,#c9cace 55%,#8e8f94);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+.grain{position:fixed;inset:-50%;z-index:90;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+
+.cur{position:fixed;left:0;top:0;z-index:100;pointer-events:none;width:34px;height:34px;margin:-17px 0 0 -17px;border:1px solid rgba(255,210,122,.7);border-radius:50%;transition:width .3s,height .3s,margin .3s,background .3s;display:grid;place-items:center}
+.cur span{font-family:var(--mono);font-size:9px;letter-spacing:.15em;color:#130c02;opacity:0;transition:.2s}
+.cur.big{width:74px;height:74px;margin:-37px 0 0 -37px;background:var(--gold2)}
+.cur.big span{opacity:1}
+@media (hover:none){.cur{display:none}}
+
+/* loader */
+.ld{position:fixed;inset:0;z-index:80;perspective:1600px;pointer-events:none}
+.ld .half{position:absolute;top:0;bottom:0;width:50%;background:#070707;transition:transform 1.4s cubic-bezier(.7,0,.2,1)}
+.ld .l{left:0;transform-origin:left center;border-right:1px solid rgba(240,180,60,.25)}
+.ld .r{right:0;transform-origin:right center;border-left:1px solid rgba(240,180,60,.25)}
+.ld.open .l{transform:rotateY(-100deg)}
+.ld.open .r{transform:rotateY(100deg)}
+.ld-in{position:absolute;inset:0;display:grid;place-items:center;transition:opacity .5s}
+.ld.open .ld-in{opacity:0}
+.ld-mk{position:relative;width:min(360px,64vw)}
+.ld-mk img{width:100%;display:block;clip-path:inset(0 100% 0 0);animation:reveal 1.6s .3s cubic-bezier(.6,0,.2,1) forwards;filter:drop-shadow(0 0 30px rgba(240,180,60,.25))}
+@keyframes reveal{to{clip-path:inset(0 0 0 0)}}
+.ld-c{position:absolute;color:var(--mute)}
+.ld-tl{top:28px;left:32px}.ld-tr{top:28px;right:32px}.ld-bl{bottom:28px;left:32px}.ld-br{bottom:28px;right:32px;color:var(--gold2)}
+
+/* nav */
+.nav{position:fixed;inset:0 0 auto;z-index:60;display:flex;justify-content:space-between;align-items:center;padding:22px var(--pad)}
+.brand{font-family:var(--serif);font-size:22px}
+.nl{display:flex;gap:28px;font-size:13px;color:var(--dim)}
+.nl a{position:relative;overflow:hidden;display:inline-block;height:1.3em}
+.nl a span{display:block;transition:transform .45s cubic-bezier(.7,0,.2,1)}
+.nl a span::after{content:attr(data-t);display:block;color:var(--gold2)}
+.nl a:hover span{transform:translateY(-50%)}
+.ncta{font-size:13px;padding:10px 18px;border-radius:999px;border:1px solid rgba(240,180,60,.5);color:var(--gold2);transition:.3s;background:rgba(5,5,5,.4);backdrop-filter:blur(6px)}
+.ncta:hover{background:var(--gold);color:#130c02}
+
+/* the dive */
+.dive-wrap{position:relative;height:1250vh}
+.dive{position:sticky;top:0;height:100vh;overflow:hidden}
+canvas.gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.vign{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,.7))}
+.hu{position:absolute;inset:0;pointer-events:none}
+.hl{position:absolute;font-family:var(--serif);font-weight:500;font-size:clamp(40px,7.2vw,124px);line-height:.9;letter-spacing:-.015em;white-space:nowrap;will-change:transform}
+.hl-a{left:var(--pad);top:20vh}
+.hl-b{right:var(--pad);top:60vh;text-align:right}
+.hl em{font-style:italic;font-weight:400}
+.hu-br{position:absolute;right:var(--pad);bottom:46px;pointer-events:auto}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 26px;border-radius:999px;font-size:14px;font-weight:500;background:linear-gradient(100deg,var(--goldd),var(--gold) 40%,var(--gold2));color:#140d02;box-shadow:0 10px 40px -10px rgba(240,180,60,.6);transition:.35s}
+.btn:hover{transform:translateY(-2px)}
+.btn-o{background:rgba(5,5,5,.35);border:1px solid rgba(255,255,255,.22);color:var(--silver);box-shadow:none;backdrop-filter:blur(6px)}
+body.diving .brand,body.diving .ncta{opacity:0;pointer-events:none}
+.brand,.ncta{transition:opacity .6s}
+
+/* author quotes: one at a time, alternating sides */
+.qs{position:absolute;inset:0;pointer-events:none}
+.q{position:absolute;top:50%;width:min(40vw,560px);opacity:0;will-change:transform,opacity,filter}
+.q.L{left:7vw;text-align:left;transform-origin:15% 50%}
+.q.R{right:7vw;text-align:right;transform-origin:85% 50%}
+.q p{font-family:var(--serif);font-style:italic;font-size:clamp(24px,2.8vw,44px);line-height:1.16}
+.q cite{display:block;margin-top:18px;font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold2)}
+.q cite::before{content:"— ";color:var(--mute)}
+
+.chs{position:absolute;inset:0;pointer-events:none;display:grid;place-items:center}
+.ch{position:absolute;text-align:center;max-width:min(900px,88vw);opacity:0;will-change:transform,opacity,filter}
+.ch .mono{display:block;color:var(--gold2);margin-bottom:18px}
+.ch h2{font-family:var(--serif);font-weight:500;font-size:clamp(30px,4.3vw,66px);line-height:1.06}
+.ch h2 em{font-style:italic;font-weight:400}
+.hud{position:absolute;left:50%;bottom:34px;transform:translateX(-50%);text-align:center;color:var(--dim);transition:opacity .4s}
+.hud-n{font-family:var(--serif);font-size:44px;line-height:1;color:var(--silver)}
+.hud-n small{font-size:16px;color:var(--mute);font-style:italic}
+.hud .mono{margin-top:8px;display:block}
+.hud .bar{width:180px;height:1px;background:var(--line);margin:12px auto 0;position:relative}
+.hud .bar i{position:absolute;inset:0;transform-origin:left;background:var(--gold)}
+.flash{position:absolute;inset:0;background:radial-gradient(circle at center,#fff6dc,#ffd27a 35%,#f0b43c 60%,#050505 100%);opacity:0;pointer-events:none}
+
+/* the new header that takes over after the book */
+.solve{position:absolute;inset:0;z-index:5;background:var(--ink);opacity:0;visibility:hidden;overflow:hidden}
+.solve.on{visibility:visible}
+.solve .photo{position:absolute;top:0;right:0;bottom:0;width:52%}
+.solve .photo img{width:100%;height:100%;object-fit:cover;object-position:50% 18%;transform:scale(1.12);transition:transform 2.2s cubic-bezier(.2,.7,.2,1);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 34%);mask-image:linear-gradient(90deg,transparent 0,#000 34%)}
+.solve .photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,.35),transparent 22%,transparent 70%,rgba(5,5,5,.9))}
+.solve .tag{position:absolute;right:var(--pad);bottom:36px;z-index:2;text-align:right}
+.solve .tag b{display:block;font-family:var(--serif);font-size:28px;font-weight:500;color:#fff}
+.solve .tag span{color:var(--gold2)}
+.solve .copy{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;width:min(640px,56%);padding:clamp(80px,11vh,110px) 0 clamp(56px,8vh,90px) var(--pad)}
+.solve h1{font-family:var(--serif);font-weight:500;font-size:clamp(32px,min(4.8vw,7vh),76px);line-height:.98;letter-spacing:-.01em;margin:12px 0 16px}
+.solve h1 em{font-style:italic;font-weight:400}
+.solve .lead{max-width:520px;color:var(--dim);font-weight:300;line-height:1.7;font-size:15px}
+.pains{list-style:none;margin:clamp(14px,2.6vh,24px) 0 clamp(18px,3.2vh,30px);border-top:1px solid var(--line);max-width:560px}
+.pains li{display:grid;grid-template-columns:40px 1fr;gap:4px 12px;padding:clamp(7px,1.3vh,12px) 0;border-bottom:1px solid var(--line)}
+.pains li .mono{color:var(--gold);padding-top:4px}
+.pains b{font-weight:500;color:var(--silver);font-size:15px}
+.pains span.s{grid-column:2;color:var(--dim);font-size:13px;font-weight:300;line-height:1.55}
+.solve .actions{display:flex;gap:12px;flex-wrap:wrap}
+.solve .lead2{margin-top:10px}
+.pains-t{color:var(--gold2);margin-top:22px}
+.pains-t+.pains{margin-top:10px}
+.solve .st{opacity:0;transform:translateY(30px);transition:opacity .9s,transform .9s cubic-bezier(.2,.7,.2,1)}
+.solve.show .st{opacity:1;transform:none}
+.solve.show .photo img{transform:scale(1)}
+@media (max-height:900px){.pains span.s{display:none}}
+@media (max-height:760px){.solve .lead2{display:none}}
+
+@media (max-width:900px){
+  .hl-a{top:16vh}.hl-b{top:66vh}.hu-br{left:var(--pad);right:auto;bottom:120px}.hud{bottom:22px}
+  .q{width:84vw}.q.L{left:7vw}.q.R{right:7vw}
+  .solve .photo{width:100%;opacity:.55}
+  .solve .photo img{-webkit-mask-image:linear-gradient(180deg,#000 30%,transparent 95%);mask-image:linear-gradient(180deg,#000 30%,transparent 95%)}
+  .solve .copy{width:100%;padding:90px var(--pad) 30px;justify-content:flex-end}
+  .solve .tag{top:84px;bottom:auto}
+  .pains span.s{display:none}.pains li{padding:8px 0}
+}
+</style>
+<link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/home.css">
+</head>
+<body class="locked" id="top">
+<div class="grain"></div>
+<div class="cur" id="cur"><span>READ</span></div>
+
+<div class="ld" id="ld">
+  <div class="half l"></div><div class="half r"></div>
+  <div class="ld-in">
+    <div class="ld-mk"><img id="logoImg" alt="" src="img/logo.png"></div>
+    <p class="ld-c ld-tl mono">Adesanya David</p>
+    <p class="ld-c ld-tr mono">Author Partner</p>
+    <p class="ld-c ld-bl mono">From draft to shelf</p>
+    <p class="ld-c ld-br mono">Page <span id="ldn">000</span></p>
+  </div>
+</div>
+
+<header class="nav">
+  <a class="brand silver" href="index.html" data-label="Home">Adesanya David</a>
+  <nav class="nl"><a href="#handover" class="here"><span data-t="What I Solve">What I Solve</span></a><a href="about.html" class=""><span data-t="About">About</span></a><a href="services.html" class=""><span data-t="Services">Services</span></a><a href="books.html" class=""><span data-t="Books">Books</span></a></nav>
+  <a class="ncta" href="#start">Start Your Book</a>
+  <button class="burger" type="button">Menu</button>
+</header>
+<div class="mmenu"><a href="index.html">Home<span>00</span></a><a href="index.html#handover">What I Solve<span>01</span></a><a href="about.html">About<span>02</span></a><a href="services.html">Services<span>03</span></a><a href="books.html">Books<span>04</span></a><a href="#contact">Contact<span>05</span></a></div>
+
+<main>
+  <div class="dive-wrap" id="wrap"><div id="handover" style="position:absolute;top:1122vh;height:1px"></div>
+    <section class="dive">
+      <canvas class="gl" id="gl"></canvas>
+      <div class="vign"></div>
+
+      <div class="hu" id="hu">
+        <div class="hl hl-a" id="hlA"><span class="silver">You write</span> <em class="gold">the story.</em></div>
+        <div class="hl hl-b" id="hlB"><span class="silver">I help bring it</span> <em class="gold">to the world.</em></div>
+        <div class="hu-br"><a class="btn" href="#start" data-c>Start Your Book →</a></div>
+      </div>
+
+      <div class="qs">
+        <div class="q L"><p class="silver">“There is no greater agony than bearing an untold story inside you.”</p><cite>Maya Angelou</cite></div>
+        <div class="q R"><p class="silver">“If there’s a book that you want to read, but it hasn’t been written yet, then you must write it.”</p><cite>Toni Morrison</cite></div>
+        <div class="q L"><p class="silver">“Start writing, no matter what. The water does not flow until the faucet is turned on.”</p><cite>Louis L’Amour</cite></div>
+        <div class="q R"><p class="silver">“Stories matter. Many stories matter.”</p><cite>Chimamanda Ngozi Adichie</cite></div>
+        <div class="q L"><p class="silver">“The first draft is just you telling yourself the story.”</p><cite>Terry Pratchett</cite></div>
+      </div>
+
+      <div class="chs">
+        <div class="ch"><span class="mono">Chapter 01 · The Spark</span><h2><span class="silver">Every book begins somewhere: an idea, an experience, or</span> <em class="gold">a story waiting to be told.</em></h2></div>
+        <div class="ch"><span class="mono">Chapter 02 · The Pages</span><h2 class="silver">Turning that idea into a manuscript takes time, commitment, and the right direction.</h2></div>
+        <div class="ch"><span class="mono">Chapter 03 · The Partnership</span><h2><span class="silver">You don’t have to figure out every part of the journey alone.</span> <em class="gold">The right support can make all the difference.</em></h2></div>
+        <div class="ch"><span class="mono">Chapter 04 · The Craft</span><h2 class="silver">Through careful writing, editing, design, and preparation, your manuscript begins to take its final shape.</h2></div>
+        <div class="ch"><span class="mono">Chapter 05 · Published</span><h2><span class="silver">The pages are ready. The book is yours.</span> <em class="gold">Now it’s time for the world to read it.</em></h2></div>
+      </div>
+
+      <div class="hud" id="hud">
+        <div class="hud-n"><span id="pg">001</span> <small>/ 300</small></div>
+        <span class="mono" id="hudl">Discover the journey</span>
+        <div class="bar"><i id="hbar"></i></div>
+      </div>
+      <div class="flash" id="flash"></div>
+
+      <!-- the header that takes over once the book has opened -->
+      <div class="solve" id="solve">
+        <div class="photo"><img alt="David Adesanya" src="img/david.jpg"></div>
+        <div class="tag st"><b>David Adesanya</b><span class="mono">Author partner · Abeokuta, Nigeria</span></div>
+        <div class="copy">
+          <p class="eyebrow mono st">What I solve for authors</p>
+          <h1 class="st"><span class="silver">Your book deserves more than</span> <em class="gold">an unfinished draft.</em></h1>
+          <p class="lead st">From the first idea to the finished book, I help authors turn their ideas and manuscripts into books they can confidently share with readers.</p>
+          <p class="lead lead2 st">Whatever stage you’re at, I help you understand what comes next and move your book closer to completion.</p>
+          <p class="mono st pains-t">Four common challenges</p>
+          <ul class="pains">
+            <li class="st"><span class="mono">01</span><b>Stuck halfway through?</b><span class="s">You have the ideas, perhaps even several chapters. I can help you find direction and make progress.</span></li>
+            <li class="st"><span class="mono">02</span><b>Not sure how publishing works?</b><span class="s">I’ll help you understand the process and take it one step at a time.</span></li>
+            <li class="st"><span class="mono">03</span><b>Want your book to look professional?</b><span class="s">Thoughtful editing, a well-designed cover and a polished interior, brought together.</span></li>
+            <li class="st"><span class="mono">04</span><b>Tired of figuring everything out alone?</b><span class="s">Someone to guide the process makes the journey clearer and more manageable.</span></li>
+          </ul>
+          <div class="actions st"><a class="btn" href="#start" data-c>Start Your Book →</a><a class="btn btn-o" href="#about">Meet David</a></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+  <section class="ab" id="about"><div class="ab-in">
+    <div class="ab-ph"><div class="ab-ring"><svg viewBox="0 0 400 300" aria-hidden="true"><ellipse cx="200" cy="150" rx="195" ry="70" fill="none" stroke="url(#og)" stroke-width="1.2" transform="rotate(-16 200 150)"/><defs><linearGradient id="og" x1="0" x2="1"><stop offset="0" stop-color="#b97a12" stop-opacity="0"/><stop offset=".55" stop-color="#ffd27a"/><stop offset="1" stop-color="#f0b43c" stop-opacity=".1"/></linearGradient></defs></svg></div><img src="img/david-bw.jpg" alt="David Adesanya"><div class="cap mono"><span>David Adesanya</span><span>Abeokuta</span></div></div>
+    <div class="ab-copy">
+      <p class="eyebrow mono">01 · About</p>
+      <div class="ab-lines"><p>I’m David Adesanya.</p><p>I help authors <em>develop their ideas,</em> refine their manuscripts, and take their books through the publishing journey.</p><p>Based in Abeokuta, Nigeria, I work with authors from different backgrounds and locations.</p><p>Every genre. Every stage. <em>One steady partner.</em></p></div>
+      <div class="ab-more"><a class="link" href="about.html" data-label="About">Read My Story →</a></div>
+    </div>
+    <span class="ab-num mono">Abeokuta · <span data-clock>--:--</span> WAT</span>
+  </div></section>
+  <section class="hs" id="services"><div class="hs-in">
+    <div class="hs-head"><div><p class="eyebrow mono">02 · Services</p><h2><span class="silver">Everything your book needs,</span> <em class="gold">in one place.</em></h2><p class="hs-p">Every book has different needs. I offer support across the key stages of the book development journey, so you can focus on creating while we work toward bringing your book to life.</p></div><p class="hint mono">Point at a card to turn it ↻</p></div>
+    <div class="hs-track"><div class="card"><div class="card-in">
+      <div class="face front"><svg viewBox="0 0 400 300" aria-hidden="true"><ellipse cx="200" cy="150" rx="195" ry="70" fill="none" stroke="url(#og)" stroke-width="1.2" transform="rotate(-16 200 150)"/><defs><linearGradient id="og" x1="0" x2="1"><stop offset="0" stop-color="#b97a12" stop-opacity="0"/><stop offset=".55" stop-color="#ffd27a"/><stop offset="1" stop-color="#f0b43c" stop-opacity=".1"/></linearGradient></defs></svg><div class="k mono"><span>Service</span><span>01 / 06</span></div><span class="n">01</span><h4>Book Planning & Manuscript Development</h4></div>
+      <div class="face back"><div><span class="mono">01</span><h4 style="margin-top:12px">Planning & Development</h4></div><ul><li>Book concept development</li><li>Research and outlining</li><li>Manuscript planning</li><li>Chapter development</li><li>Ghostwriting and co-writing coordination</li></ul></div>
+    </div></div><div class="card"><div class="card-in">
+      <div class="face front"><svg viewBox="0 0 400 300" aria-hidden="true"><ellipse cx="200" cy="150" rx="195" ry="70" fill="none" stroke="url(#og)" stroke-width="1.2" transform="rotate(-16 200 150)"/><defs><linearGradient id="og" x1="0" x2="1"><stop offset="0" stop-color="#b97a12" stop-opacity="0"/><stop offset=".55" stop-color="#ffd27a"/><stop offset="1" stop-color="#f0b43c" stop-opacity=".1"/></linearGradient></defs></svg><div class="k mono"><span>Service</span><span>02 / 06</span></div><span class="n">02</span><h4>Professional Editing & Manuscript Review</h4></div>
+      <div class="face back"><div><span class="mono">02</span><h4 style="margin-top:12px">Editing & Review</h4></div><ul><li>Developmental editing</li><li>Line editing</li><li>Copyediting</li><li>Proofreading</li><li>Beta reading and manuscript feedback</li></ul></div>
+    </div></div><div class="card"><div class="card-in">
+      <div class="face front"><svg viewBox="0 0 400 300" aria-hidden="true"><ellipse cx="200" cy="150" rx="195" ry="70" fill="none" stroke="url(#og)" stroke-width="1.2" transform="rotate(-16 200 150)"/><defs><linearGradient id="og" x1="0" x2="1"><stop offset="0" stop-color="#b97a12" stop-opacity="0"/><stop offset=".55" stop-color="#ffd27a"/><stop offset="1" stop-color="#f0b43c" stop-opacity=".1"/></linearGradient></defs></svg><div class="k mono"><span>Service</span><span>03 / 06</span></div><span class="n">03</span><h4>Book Cover Design & Illustration</h4></div>
+      <div class="face back"><div><span class="mono">03</span><h4 style="margin-top:12px">Cover Design & Illustration</h4></div><ul><li>Book cover concept development</li><li>Front, spine, and back cover design</li><li>Ebook cover design</li><li>Illustrations</li><li>Children’s book illustrations</li></ul></div>
+    </div></div><div class="card"><div class="card-in">
+      <div class="face front"><svg viewBox="0 0 400 300" aria-hidden="true"><ellipse cx="200" cy="150" rx="195" ry="70" fill="none" stroke="url(#og)" stroke-width="1.2" transform="rotate(-16 200 150)"/><defs><linearGradient id="og" x1="0" x2="1"><stop offset="0" stop-color="#b97a12" stop-opacity="0"/><stop offset=".55" stop-color="#ffd27a"/><stop offset="1" stop-color="#f0b43c" stop-opacity=".1"/></linearGradient></defs></svg><div class="k mono"><span>Service</span><span>04 / 06</span></div><span class="n">04</span><h4>Book Formatting & Production</h4></div>
+      <div class="face back"><div><span class="mono">04</span><h4 style="margin-top:12px">Formatting & Production</h4></div><ul><li>Interior book formatting</li><li>Print-ready layout</li><li>Kindle formatting</li><li>EPUB preparation</li><li>Typography and page design</li></ul></div>
+    </div></div><div class="card"><div class="card-in">
+      <div class="face front"><svg viewBox="0 0 400 300" aria-hidden="true"><ellipse cx="200" cy="150" rx="195" ry="70" fill="none" stroke="url(#og)" stroke-width="1.2" transform="rotate(-16 200 150)"/><defs><linearGradient id="og" x1="0" x2="1"><stop offset="0" stop-color="#b97a12" stop-opacity="0"/><stop offset=".55" stop-color="#ffd27a"/><stop offset="1" stop-color="#f0b43c" stop-opacity=".1"/></linearGradient></defs></svg><div class="k mono"><span>Service</span><span>05 / 06</span></div><span class="n">05</span><h4>Publishing & Distribution</h4></div>
+      <div class="face back"><div><span class="mono">05</span><h4 style="margin-top:12px">Publishing & Distribution</h4></div><ul><li>Publishing preparation</li><li>ISBN and metadata guidance</li><li>Amazon KDP publishing support</li><li>Ebook and paperback setup</li><li>Print-on-demand preparation</li></ul></div>
+    </div></div><div class="card"><div class="card-in">
+      <div class="face front"><svg viewBox="0 0 400 300" aria-hidden="true"><ellipse cx="200" cy="150" rx="195" ry="70" fill="none" stroke="url(#og)" stroke-width="1.2" transform="rotate(-16 200 150)"/><defs><linearGradient id="og" x1="0" x2="1"><stop offset="0" stop-color="#b97a12" stop-opacity="0"/><stop offset=".55" stop-color="#ffd27a"/><stop offset="1" stop-color="#f0b43c" stop-opacity=".1"/></linearGradient></defs></svg><div class="k mono"><span>Service</span><span>06 / 06</span></div><span class="n">06</span><h4>Author Branding, Marketing & Launch Support</h4></div>
+      <div class="face back"><div><span class="mono">06</span><h4 style="margin-top:12px">Branding, Marketing & Launch</h4></div><ul><li>Author website development</li><li>Author branding</li><li>Book launch planning</li><li>Social media marketing</li><li>Email marketing</li></ul></div>
+    </div></div><a class="card all" href="services.html" data-label="Services"><div class="card-in"><div class="face front"><span class="mono" style="color:var(--gold2)">Every detail</span><h4 style="margin:18px 0 26px"><span class="silver">Explore My Services</span> <em class="gold">→</em></h4><span class="mono" style="color:var(--mute)">Process · FAQ · What’s included</span></div></div></a></div>
+    <div class="hs-bar"><i></i></div>
+  </div></section>
+  <section class="shelf" id="books">
+    <div class="shelf-head"><div><p class="eyebrow mono">03 · Books</p><h2><span class="silver">Every book begins</span> <em class="gold">with a story.</em></h2><p class="hs-p">Behind every book is an author with an idea, a message, or a story worth sharing. Every genre has a place on this shelf.</p></div><p class="mono" style="color:var(--mute)">Point at a book to open it</p></div>
+    <div class="shelf-glow"></div>
+    <div class="shelf-row"><div class="bk" data-genre="Fiction"><div class="bk-in">
+  <div class="bk-face bk-pages"></div><div class="bk-face bk-page"><i style="width:92%"></i><i style="width:80%"></i><i style="width:88%"></i><i style="width:70%"></i><i style="width:90%"></i><i style="width:60%"></i><i style="width:84%"></i><i style="width:40%"></i></div>
+  <div class="bk-face bk-spine" style="background:linear-gradient(90deg,#05080b,#13202a)"></div>
+  <div class="bk-face bk-cover" style="background:linear-gradient(160deg,#13202a,#05080b)"><span>FICTION</span><b>Your story<br>here.</b><span>ADESANYA DAVID</span></div>
+  </div><div class="bk-shadow"></div></div><div class="bk" data-genre="Memoir"><div class="bk-in">
+  <div class="bk-face bk-pages"></div><div class="bk-face bk-page"><i style="width:92%"></i><i style="width:80%"></i><i style="width:88%"></i><i style="width:70%"></i><i style="width:90%"></i><i style="width:60%"></i><i style="width:84%"></i><i style="width:40%"></i></div>
+  <div class="bk-face bk-spine" style="background:linear-gradient(90deg,#0d0b08,#3a2a12)"></div>
+  <div class="bk-face bk-cover" style="background:linear-gradient(160deg,#3a2a12,#0d0b08)"><span>MEMOIR</span><b>Your story<br>here.</b><span>ADESANYA DAVID</span></div>
+  </div><div class="bk-shadow"></div></div><div class="bk" data-genre="Faith"><div class="bk-in">
+  <div class="bk-face bk-pages"></div><div class="bk-face bk-page"><i style="width:92%"></i><i style="width:80%"></i><i style="width:88%"></i><i style="width:70%"></i><i style="width:90%"></i><i style="width:60%"></i><i style="width:84%"></i><i style="width:40%"></i></div>
+  <div class="bk-face bk-spine" style="background:linear-gradient(90deg,#0b0606,#2a1416)"></div>
+  <div class="bk-face bk-cover" style="background:linear-gradient(160deg,#2a1416,#0b0606)"><span>FAITH</span><b>Your story<br>here.</b><span>ADESANYA DAVID</span></div>
+  </div><div class="bk-shadow"></div></div><div class="bk" data-genre="Business"><div class="bk-in">
+  <div class="bk-face bk-pages"></div><div class="bk-face bk-page"><i style="width:92%"></i><i style="width:80%"></i><i style="width:88%"></i><i style="width:70%"></i><i style="width:90%"></i><i style="width:60%"></i><i style="width:84%"></i><i style="width:40%"></i></div>
+  <div class="bk-face bk-spine" style="background:linear-gradient(90deg,#080a06,#1c2414)"></div>
+  <div class="bk-face bk-cover" style="background:linear-gradient(160deg,#1c2414,#080a06)"><span>BUSINESS</span><b>Your story<br>here.</b><span>ADESANYA DAVID</span></div>
+  </div><div class="bk-shadow"></div></div><div class="bk" data-genre="Poetry"><div class="bk-in">
+  <div class="bk-face bk-pages"></div><div class="bk-face bk-page"><i style="width:92%"></i><i style="width:80%"></i><i style="width:88%"></i><i style="width:70%"></i><i style="width:90%"></i><i style="width:60%"></i><i style="width:84%"></i><i style="width:40%"></i></div>
+  <div class="bk-face bk-spine" style="background:linear-gradient(90deg,#09070c,#231a2c)"></div>
+  <div class="bk-face bk-cover" style="background:linear-gradient(160deg,#231a2c,#09070c)"><span>POETRY</span><b>Your story<br>here.</b><span>ADESANYA DAVID</span></div>
+  </div><div class="bk-shadow"></div></div><div class="bk" data-genre="Children’s Books"><div class="bk-in">
+  <div class="bk-face bk-pages"></div><div class="bk-face bk-page"><i style="width:92%"></i><i style="width:80%"></i><i style="width:88%"></i><i style="width:70%"></i><i style="width:90%"></i><i style="width:60%"></i><i style="width:84%"></i><i style="width:40%"></i></div>
+  <div class="bk-face bk-spine" style="background:linear-gradient(90deg,#0c0905,#2b2210)"></div>
+  <div class="bk-face bk-cover" style="background:linear-gradient(160deg,#2b2210,#0c0905)"><span>CHILDREN’S BOOKS</span><b>Your story<br>here.</b><span>ADESANYA DAVID</span></div>
+  </div><div class="bk-shadow"></div></div><div class="bk" data-genre="Self-Help"><div class="bk-in">
+  <div class="bk-face bk-pages"></div><div class="bk-face bk-page"><i style="width:92%"></i><i style="width:80%"></i><i style="width:88%"></i><i style="width:70%"></i><i style="width:90%"></i><i style="width:60%"></i><i style="width:84%"></i><i style="width:40%"></i></div>
+  <div class="bk-face bk-spine" style="background:linear-gradient(90deg,#0b0703,#2c1c0c)"></div>
+  <div class="bk-face bk-cover" style="background:linear-gradient(160deg,#2c1c0c,#0b0703)"><span>SELF-HELP</span><b>Your story<br>here.</b><span>ADESANYA DAVID</span></div>
+  </div><div class="bk-shadow"></div></div><a class="bk next" href="#start"><div class="bk-in"><div class="bk-face bk-cover"><b class="gold">The next story<br>could be yours.</b><span style="margin-top:14px">START YOUR BOOK →</span></div></div></a></div>
+    <div class="shelf-plank"></div>
+    <div class="shelf-foot"><p style="color:var(--dim);max-width:460px;font-weight:300;line-height:1.7">The next story could be yours. Whether you’re developing your first manuscript or preparing your next publication, I’d love to hear about your project.</p><div style="display:flex;gap:22px;align-items:center;flex-wrap:wrap"><a class="link" href="books.html" data-label="Books">See all books →</a><a class="btn" href="#start">Start Your Book →</a></div></div>
+  </section>
+  <section class="proof">
+    <p class="eyebrow mono rv">04 · What I stand for</p>
+    <h2 class="proof-h rv"><span class="silver">The work behind every</span> <em class="gold">finished book.</em></h2>
+    <div class="nums rv">
+      <div><b class="silver" data-count="12">0</b><span class="mono">Books Published</span></div>
+      <div><b class="silver" data-count="30" data-suffix="+">0</b><span class="mono">Authors Guided</span></div>
+      <div><b class="silver" data-count="6">0</b><span class="mono">Countries</span></div>
+      <div><b class="gold" data-count="100" data-suffix="%">0</b><span class="mono">Rights Stay Yours</span></div>
+    </div>
+    <div class="stmts rv" style="margin-top:50px"><div><span class="mono">01</span><h4>Ideas deserve development</h4><p>Every book begins with an idea worth exploring.</p></div><div><span class="mono">02</span><h4>Every genre has a story</h4><p>From fiction and memoir to business and self-help.</p></div><div><span class="mono">03</span><h4>Support at every stage</h4><p>From early manuscript development to publication preparation.</p></div><div><span class="mono">04</span><h4>Your story remains yours</h4><p>Your creative vision and ownership deserve respect.</p></div></div>
+    <div class="tst-head rv"><h2 class="proof-h"><span class="silver">A thoughtful process.</span> <em class="gold">A book worth sharing.</em></h2><p class="hs-p">Every author deserves to be treated with care, respect, and professionalism. My approach is built around understanding your vision, communicating clearly, and making sure every stage of your project receives the attention it deserves.</p></div>
+    <div class="trust rv"><div class="tcard"><span class="tq">“</span><h4>Your vision comes first</h4><p>Your book should reflect your ideas, your voice, and the message you want readers to experience.</p></div><div class="tcard"><span class="tq">“</span><h4>Clear communication</h4><p>You’ll understand the work being done, the decisions involved, and what comes next.</p></div><div class="tcard"><span class="tq">“</span><h4>A commitment to quality</h4><p>Every stage deserves careful attention, from the first manuscript review to the final publishing preparation.</p></div></div>
+  </section>
+<section class="end" id="start">
+  <p class="eyebrow mono rv">Your Turn</p>
+  <h3 class="rv"><span class="silver">Your book is</span><br><em class="gold">worth finishing.</em></h3>
+  <p class="end-p rv">Whether you’re starting with an idea or holding a manuscript that’s almost ready, let’s talk about where you are and what it will take to move forward.</p>
+  <a class="btn rv" href="#contact">Start the Conversation →</a>
+</section>
+</main>
+<footer class="foot" id="contact">
+  <div class="cform-wrap">
+    <div class="cform-l">
+      <p class="eyebrow mono rv">Contact</p>
+      <h3 class="cform-h rv"><span class="silver">Tell me about</span> <em class="gold">your book.</em></h3>
+      <p class="rv">Share what you’re working on, where you currently stand, and what you’d like to achieve. I’ll review your enquiry and get back to you with the next steps.</p>
+      <p class="reply rv"><span class="dot-live"></span>I usually reply within 3–4 hours</p>
+    </div>
+    <form class="cform rv" id="cform" onsubmit="return false">
+      <label><span class="mono">Your name</span><input name="name" required placeholder="Full name"></label>
+      <label><span class="mono">Email</span><input name="email" type="email" placeholder="you@example.com"></label>
+      <label><span class="mono">Where is your book now?</span><select name="stage"><option>Just an idea</option><option>Notes or an outline</option><option>Unfinished manuscript</option><option>Finished draft</option><option>Ready to publish</option></select></label>
+      <label><span class="mono">What do you need?</span><select name="need"><option>Planning & Development</option><option>Editing & Review</option><option>Cover Design & Illustration</option><option>Formatting & Production</option><option>Publishing & Distribution</option><option>Branding, Marketing & Launch</option><option>Not sure yet</option></select></label>
+      <label class="full"><span class="mono">About your book</span><textarea name="msg" rows="4" placeholder="Title, genre, length, and anything else I should know"></textarea></label>
+      <div class="full cform-send"><a class="btn" id="sendWa" href="https://wa.me/2349077716599" target="_blank" rel="noopener">Send on WhatsApp →</a><a class="btn btn-o" id="sendEm" href="mailto:adesanyadavid25@gmail.com" target="_blank" rel="noopener">Send by email</a></div>
+      <p class="full cform-note">Your message opens in WhatsApp or your email app, ready to send.</p>
+    </form>
+  </div>
+  <div class="foot-word rv"><span class="silver">Adesanya</span> <em class="gold">David</em></div>
+  <div class="foot-grid">
+    <div><p class="big">Have a book in you, or one already taking shape on paper?</p><p style="margin-top:14px">Tell me where it stands. Let’s talk about what comes next.</p></div>
+    <div><h6>Pages</h6><a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a><a href="books.html">Books</a><a href="#contact">Contact</a></div>
+    <div><h6>Contact</h6><a href="mailto:adesanyadavid25@gmail.com" target="_blank" rel="noopener">adesanyadavid25@gmail.com</a><a href="https://wa.me/2349077716599" target="_blank" rel="noopener">WhatsApp: +234 907 771 6599</a><a href="tel:+2349155782441">Phone: +234 915 578 2441</a></div>
+    <div><h6>Based in</h6><p>Abeokuta, Nigeria</p><p>Local time <span data-clock>--:--</span> WAT</p><p>Working with authors worldwide</p></div>
+  </div>
+  <div class="foot-bot mono"><span>© Adesanya David. All rights reserved.</span><span>From First Draft to Published Book.</span><a href="#top">Back to top ↑</a></div>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v)), lerp=(a,b,t)=>a+(b-a)*t;
+const range=(p,a,b)=>clamp((p-a)/(b-a));
+const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+const easeOut=t=>1-Math.pow(1-t,3);
+const LOGO=$('#logoImg').src, BIG='img/logo-big.webp';
+document.body.classList.add('diving');
+
+/* loader */
+let n=0,introStart=0;const ldn=$('#ldn');
+const cnt=setInterval(()=>{n=Math.min(300,n+Math.ceil(Math.random()*14));ldn.textContent=String(n).padStart(3,'0');if(n>=300){clearInterval(cnt);setTimeout(open,450)}},60);
+function open(){$('#ld').classList.add('open');document.body.classList.remove('locked');introStart=performance.now();setTimeout(()=>$('#ld').style.display='none',1600)}
+
+/* pointer */
+let mx=innerWidth/2,my=innerHeight/2,cx=mx,cy=my;
+addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY});
+
+$$('.solve .st').forEach((el,i)=>el.style.transitionDelay=(.1+i*.08)+'s');
+
+/* ---------- timeline (share of the dive scroll) ----------
+   hero → logo shatters → [quote L, ch1, quote R, ch2, quote L, ch3, quote R, ch4, quote L, ch5] → book → flash → header */
+const S0=.15,S1=.87,SL=(S1-S0)/10;
+const T={split:[0,.07],shatter:[.015,.15],pagesIn:[.15,.21],swirl:[S0+SL*5,S0+SL*6.2],bind:[S0+SL*7,S0+SL*8.2],thread:[S0+SL*5,.9],book:[.86,.925],flash:[.91,.945],header:[.945,.975]};
+const slots=[];for(let i=0;i<10;i++)slots.push([S0+i*SL,S0+(i+1)*SL]);
+const hlA=$('#hlA'),hlB=$('#hlB'),hu=$('#hu'),chs=$$('.ch'),qs=$$('.q'),pg=$('#pg'),hudl=$('#hudl'),hbar=$('#hbar'),flash=$('#flash'),hud=$('#hud'),solve=$('#solve');
+let target=0,prog=0;const wrap=$('#wrap');
+function readScroll(){const r=wrap.getBoundingClientRect();target=clamp(-r.top/(wrap.offsetHeight-innerHeight))}
+addEventListener('scroll',readScroll,{passive:true});readScroll();
+
+const mobile=innerWidth<760;
+let renderer,scene,camera,path,rings=[],pages=[],thread,threadCount,dust,book,glow,clock3,shardMat,logoGroup;
+if(!window.THREE){$('#gl').style.background='radial-gradient(circle,#2a1d08,#050505 70%)'}
+else{
+  renderer=new THREE.WebGLRenderer({canvas:$('#gl'),antialias:true,alpha:false});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,mobile?1.5:2));
+  scene=new THREE.Scene();scene.background=new THREE.Color(0x050505);scene.fog=new THREE.FogExp2(0x050505,.026);
+  camera=new THREE.PerspectiveCamera(60,1,.1,400);clock3=new THREE.Clock();
+  const C=z=>new THREE.Vector3(z>0?0:Math.sin(z*.032)*3.2,z>0?0:Math.cos(z*.024)*2.1-2.1,z);path=C;
+  const ADD=THREE.AdditiveBlending,gold=new THREE.Color(0xf0b43c),silver=new THREE.Color(0xc9cace),gold2=new THREE.Color(0xffd27a);
+
+  /* THE LOGO — your exact logo image, cut into glass-like shards that sit perfectly together
+     until you scroll, then break apart and fly outward. */
+  const AR=1200/809, COLS=mobile?20:30, ROWS=mobile?14:20;
+  const vx=[],cw=AR/COLS,ch=1/ROWS;
+  for(let j=0;j<=ROWS;j++)for(let i=0;i<=COLS;i++){
+    const edge=i==0||j==0||i==COLS||j==ROWS;
+    vx.push([(-AR/2+i*cw)+(edge?0:(Math.random()-.5)*cw*.7),(-.5+j*ch)+(edge?0:(Math.random()-.5)*ch*.7)]);
+  }
+  const V=(i,j)=>vx[j*(COLS+1)+i];
+  const pos=[],uv=[],cen=[],dir=[],axis=[],rnd=[];
+  const pushTri=(a,b,c)=>{const cx=(a[0]+b[0]+c[0])/3,cy=(a[1]+b[1]+c[1])/3;
+    const len=Math.hypot(cx,cy)||1, r=Math.random();
+    const d=[cx/len*(.7+Math.random()*.9)+(Math.random()-.5)*.5, cy/len*(.7+Math.random()*.9)+(Math.random()-.5)*.5, .2+Math.random()*1.4];
+    const ax=[Math.random()-.5,Math.random()-.5,Math.random()-.5];const al=Math.hypot(...ax);
+    [a,b,c].forEach(v=>{pos.push(v[0],v[1],0);uv.push(v[0]/AR+.5,v[1]+.5);cen.push(cx,cy,0);dir.push(...d);axis.push(ax[0]/al,ax[1]/al,ax[2]/al);rnd.push(r)})};
+  for(let j=0;j<ROWS;j++)for(let i=0;i<COLS;i++){
+    const a=V(i,j),b=V(i+1,j),c=V(i+1,j+1),d=V(i,j+1);
+    if(Math.random()<.5){pushTri(a,b,c);pushTri(a,c,d)}else{pushTri(a,b,d);pushTri(b,c,d)}}
+  const sg=new THREE.BufferGeometry();
+  sg.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));sg.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));
+  sg.setAttribute('aC',new THREE.Float32BufferAttribute(cen,3));sg.setAttribute('aDir',new THREE.Float32BufferAttribute(dir,3));
+  sg.setAttribute('aAxis',new THREE.Float32BufferAttribute(axis,3));sg.setAttribute('aR',new THREE.Float32BufferAttribute(rnd,1));
+  const logoTex=new THREE.TextureLoader().load(BIG);logoTex.minFilter=THREE.LinearFilter;logoTex.generateMipmaps=false;
+  logoTex.anisotropy=renderer.capabilities.getMaxAnisotropy();
+  shardMat=new THREE.ShaderMaterial({transparent:true,depthWrite:false,side:THREE.DoubleSide,
+    uniforms:{map:{value:logoTex},uP:{value:0},uO:{value:0}},
+    vertexShader:`
+      uniform float uP; attribute vec3 aC; attribute vec3 aDir; attribute vec3 aAxis; attribute float aR;
+      varying vec2 vUv; varying float vF; varying float vS;
+      vec3 rot(vec3 v, vec3 k, float a){ return v*cos(a)+cross(k,v)*sin(a)+k*dot(k,v)*(1.0-cos(a)); }
+      void main(){
+        vUv=uv;
+        float s=clamp((uP-aR*0.3)/0.7,0.0,1.0); s=1.0-pow(1.0-s,3.0); vS=s;
+        vec3 local=position-aC;
+        local=rot(local,aAxis,s*(3.0+aR*9.0));
+        local*=1.0-s*0.35;
+        vec3 p=aC+local+aDir*s*vec3(2.6+aR*2.6,2.6+aR*2.6,3.5);
+        vF=1.0-smoothstep(0.55,1.0,s);
+        gl_Position=projectionMatrix*modelViewMatrix*vec4(p,1.0);
+      }`,
+    fragmentShader:`
+      uniform sampler2D map; uniform float uO; varying vec2 vUv; varying float vF; varying float vS;
+      void main(){
+        vec4 c=texture2D(map,vUv);
+        if(c.a<0.01) discard;
+        c.rgb+=vec3(0.35,0.22,0.05)*vS*(1.0-vS)*2.0;   // warm glint on the flying shards
+        gl_FragColor=vec4(c.rgb,c.a*vF*uO);
+      }`});
+  logoGroup=new THREE.Group();logoGroup.add(new THREE.Mesh(sg,shardMat));scene.add(logoGroup);
+
+  /* corridor of tilted orbit rings, silver → gold, each with a riding bead */
+  const N=mobile?34:46;
+  for(let i=0;i<N;i++){const z=-6-i*4.4,t=i/(N-1);
+    const r=new THREE.Mesh(new THREE.TorusGeometry(5.2,.018+t*.012,6,mobile?90:140),new THREE.MeshBasicMaterial({color:silver.clone().lerp(gold,ease(t)),transparent:true,opacity:0,blending:ADD,depthWrite:false}));
+    r.scale.set(1.55,.62,1);r.position.copy(C(z));r.userData={z,base:-.26+i*.07,t};scene.add(r);rings.push(r);
+    const b=new THREE.Mesh(new THREE.SphereGeometry(.06,8,8),new THREE.MeshBasicMaterial({color:gold2,blending:ADD,transparent:true}));r.add(b);r.userData.bead=b}
+
+  /* floating manuscript pages */
+  const pc=document.createElement('canvas');pc.width=128;pc.height=170;const x=pc.getContext('2d');
+  x.fillStyle='#e9e6df';x.fillRect(0,0,128,170);x.fillStyle='#b9b4a8';for(let i=0;i<11;i++)x.fillRect(16,22+i*12,i==10?44:72+((i*29)%24),3);
+  const pTex=new THREE.CanvasTexture(pc),pGeo=new THREE.PlaneGeometry(.8,1.06);
+  for(let i=0;i<(mobile?70:130);i++){const p=new THREE.Mesh(pGeo,new THREE.MeshBasicMaterial({map:pTex,transparent:true,opacity:0,side:THREE.DoubleSide,depthWrite:false}));
+    p.userData={z:-8-Math.random()*150,a:Math.random()*6.28,r:2.6+Math.random()*4.2,s:(.15+Math.random()*.35)*(Math.random()<.5?-1:1),rx:Math.random()*6,ry:Math.random()*6};scene.add(p);pages.push(p)}
+
+  /* golden thread */
+  const pts=[];for(let z=-2;z>=-196;z-=1.5){const c=C(z);pts.push(new THREE.Vector3(c.x+Math.sin(z*.22)*1.1,c.y+Math.cos(z*.22)*.8,z))}
+  const tg=new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),mobile?500:900,.035,6,false);
+  thread=new THREE.Mesh(tg,new THREE.MeshBasicMaterial({color:gold2,transparent:true,blending:ADD,opacity:.95}));threadCount=tg.index.count;tg.setDrawRange(0,0);scene.add(thread);
+
+  /* gold dust */
+  const DN=mobile?900:2200,dp=new Float32Array(DN*3);
+  for(let i=0;i<DN;i++){const z=4-Math.random()*205,c=C(z),a=Math.random()*6.28,r=1+Math.random()*9;dp[i*3]=c.x+Math.cos(a)*r;dp[i*3+1]=c.y+Math.sin(a)*r*.7;dp[i*3+2]=z}
+  const dg=new THREE.BufferGeometry();dg.setAttribute('position',new THREE.BufferAttribute(dp,3));
+  dust=new THREE.Points(dg,new THREE.PointsMaterial({color:gold,size:.05,transparent:true,opacity:0,blending:ADD,depthWrite:false}));scene.add(dust);
+
+  /* the book that opens */
+  book=new THREE.Group();book.position.copy(C(-204));scene.add(book);
+  const cc=document.createElement('canvas');cc.width=512;cc.height=700;const k=cc.getContext('2d');const coverTex=new THREE.CanvasTexture(cc);
+  const drawCover=img=>{const gr=k.createLinearGradient(0,0,512,700);gr.addColorStop(0,'#1d1b17');gr.addColorStop(1,'#080807');k.fillStyle=gr;k.fillRect(0,0,512,700);
+    k.strokeStyle='#d9a23a';k.lineWidth=3;k.strokeRect(26,26,460,648);k.lineWidth=1;k.strokeRect(40,40,432,620);
+    if(img)k.drawImage(img,86,160,340,229);
+    k.fillStyle='#e6e6ea';k.textAlign='center';k.font='italic 46px Merriweather, Georgia, serif';k.fillText('Your Book',256,500);
+    k.fillStyle='#b8893a';k.font='15px Raleway, sans-serif';k.fillText('A D E S A N Y A   D A V I D',256,600);coverTex.needsUpdate=true};
+  drawCover(null);const im=new Image();im.onload=()=>drawCover(im);im.src=LOGO;
+  const W=3.4,H=4.6,flat=c=>new THREE.MeshBasicMaterial({color:c});
+  const back=new THREE.Mesh(new THREE.BoxGeometry(W,H,.14),flat(0x14110c));back.position.z=-.32;book.add(back);
+  const block=new THREE.Mesh(new THREE.BoxGeometry(W-.12,H-.14,.46),flat(0xefe6d2));block.position.set(-.02,0,-.04);book.add(block);
+  const hinge=new THREE.Group();hinge.position.set(-W/2,0,.22);book.add(hinge);
+  const cm=[0,0,0,0,0,0].map(()=>flat(0x14110c));cm[4]=new THREE.MeshBasicMaterial({map:coverTex});cm[5]=flat(0xf3ead6);
+  const cover=new THREE.Mesh(new THREE.BoxGeometry(W,H,.08),cm);cover.position.x=W/2;hinge.add(cover);book.userData.hinge=hinge;
+  const gc=document.createElement('canvas');gc.width=gc.height=256;const gx=gc.getContext('2d');const rg=gx.createRadialGradient(128,128,0,128,128,128);
+  rg.addColorStop(0,'rgba(255,246,220,1)');rg.addColorStop(.3,'rgba(255,210,122,.6)');rg.addColorStop(1,'rgba(240,180,60,0)');gx.fillStyle=rg;gx.fillRect(0,0,256,256);
+  glow=new THREE.Mesh(new THREE.PlaneGeometry(10,10),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(gc),transparent:true,blending:ADD,depthWrite:false,opacity:0}));glow.position.z=.3;book.add(glow);
+
+  /* logo fills about three quarters of the screen */
+  const START=17;
+  const resize=()=>{const w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.fov=w<h?76:60;camera.updateProjectionMatrix();
+    const visH=2*START*Math.tan(camera.fov*Math.PI/360),visW=visH*camera.aspect;
+    logoGroup.scale.setScalar(Math.min(visW*(w<h?.92:.74)/AR,visH*.78))};
+  addEventListener('resize',resize);resize();
+}
+
+function camZ(p){ if(p<.15) return lerp(17,-3,ease(p/.15)); return lerp(-3,-195,ease(clamp((p-.15)/(.925-.15)))); }
+
+/* one slot = one message; quotes alternate L, R, L, R, L between the chapters */
+function zoomIn(el,t,side){ // tiny → readable → rushes past you
+  const sc=t<.42?lerp(.05,1,easeOut(t/.42)):t<.68?1+(t-.42)*.3:lerp(1.08,2.8,ease((t-.68)/.32));
+  const o=t<=0||t>=1?0:t<.28?t/.28:t<.7?1:1-(t-.7)/.3;
+  el.style.opacity=o;
+  el.style.transform=(side?'translateY(-50%) translateX('+(side*Math.max(0,t-.68)*34)+'vw) ':'')+'scale('+sc+')';
+  el.style.filter='blur('+(t<.2?(.2-t)*22:t>.7?(t-.7)*28:0)+'px)';
+}
+
+let rendering=true;
+function frame(){
+  requestAnimationFrame(frame);
+  prog=lerp(prog,target,.075);const p=prog;
+  cx=lerp(cx,mx,.18);cy=lerp(cy,my,.18);
+  const intro=introStart?clamp((performance.now()-introStart)/1800):0;
+
+  /* hero headline splits apart */
+  const h=ease(range(p,...T.split));
+  hlA.style.transform='translate3d('+(-h*60)+'vw,'+(-h*8)+'vh,0) scale('+(1+h*.4)+')';
+  hlB.style.transform='translate3d('+(h*60)+'vw,'+(h*8)+'vh,0) scale('+(1+h*.4)+')';
+  hlA.style.filter=hlB.style.filter='blur('+(h*8)+'px)';
+  hu.style.opacity=(1-range(p,.03,.07))*ease(intro);
+
+  qs.forEach((q,i)=>{const[a,b]=slots[i*2];zoomIn(q,range(p,a,b),q.classList.contains('L')?-1:1)});
+  chs.forEach((c,i)=>{const[a,b]=slots[i*2+1];zoomIn(c,range(p,a,b),0)});
+
+  pg.textContent=String(Math.max(1,Math.round(clamp(p/.925)*300))).padStart(3,'0');
+  hudl.textContent=p<.03?'Discover the journey':p<S0+SL*3?'Draft':p<S0+SL*5?'In Development':p<S0+SL*7?'In Editing':p<S0+SL*9?'In Design':'Published';
+  hbar.style.transform='scaleX('+clamp(p/.925)+')';hud.style.opacity=p>.9?0:1;
+
+  /* flash, then the header takes over the whole screen */
+  const fl=range(p,...T.flash);flash.style.opacity=fl*(1-range(p,T.header[1],T.header[1]+.01));
+  const hd=range(p,...T.header);
+  solve.style.opacity=hd;solve.classList.toggle('on',hd>0);solve.classList.toggle('show',hd>.5);
+  solve.style.pointerEvents=hd>.9?'auto':'none';
+  const pastDive=wrap.getBoundingClientRect().bottom<innerHeight*.5;
+  document.body.classList.toggle('diving',hd<.5&&!pastDive);
+
+
+  if(!window.THREE)return;
+  rendering=hd<1; if(!rendering)return;
+  const t=clock3.getElapsedTime();
+  const zc=camZ(p),c=path(zc),ahead=path(zc-9);
+  camera.position.set(c.x+(cx/innerWidth-.5)*.8,c.y-(cy/innerHeight-.5)*.6,zc);
+  camera.lookAt(ahead.x,ahead.y,ahead.z);
+  camera.rotation.z+=Math.sin(p*Math.PI*3)*.05+(-.18*range(p,.35,.5)+.18*range(p,.5,.7));
+
+  /* logo: exact image, still and whole until you scroll — then it shatters outward */
+  const sh=range(p,...T.shatter);
+  shardMat.uniforms.uP.value=sh;shardMat.uniforms.uO.value=ease(intro);
+  logoGroup.visible=sh<1;
+  logoGroup.rotation.y=(cx/innerWidth-.5)*.12*(1-sh);logoGroup.rotation.x=-(cy/innerHeight-.5)*.08*(1-sh);
+
+  const corr=range(p,.07,.16);
+  rings.forEach((r,i)=>{const u=r.userData,d=zc-u.z;
+    r.material.opacity=clamp(1-Math.abs(d)/70)*corr*(d<2?clamp(d/2):1)*.9;
+    r.rotation.z=u.base+t*.05*(i%2?1:-1)+p*1.2;
+    const a=t*(.6+u.t)+i;u.bead.position.set(Math.cos(a)*5.2,Math.sin(a)*5.2,0);
+    const s=1+Math.sin(t*2+i)*.01+range(p,.86,.93)*.3;r.scale.set(1.55*s,.62*s,1)});
+
+  const sw=ease(range(p,...T.swirl)),bind=range(p,...T.bind),pin=range(p,...T.pagesIn);
+  pages.forEach(pp=>{const u=pp.userData,pc=path(u.z),a=u.a+t*u.s*(1+sw*4),rr=u.r*(1-sw*.62);
+    pp.position.set(pc.x+Math.cos(a)*rr,pc.y+Math.sin(a)*rr*.75,u.z+sw*Math.sin(a*2)*1.5);
+    pp.rotation.set(u.rx+t*u.s*.7*(1-sw),u.ry+t*u.s*(1-sw),a*sw);
+    const d=zc-u.z;pp.material.opacity=pin*clamp(1-Math.abs(d)/55)*(1-bind)*(d<1?clamp(d):1)*.85});
+
+  thread.geometry.setDrawRange(0,Math.floor(threadCount*clamp(range(p,...T.thread)*1.05)));
+  thread.material.opacity=.95*(1-range(p,.88,.92));
+  dust.material.opacity=(.55+.25*Math.sin(t*.8))*range(p,.02,.12);
+
+  const ob=ease(range(p,...T.book));
+  book.userData.hinge.rotation.y=-ob*2.45;book.rotation.y=Math.sin(t*.6)*.08*(1-ob);book.rotation.x=-.06;
+  glow.material.opacity=ob*1.2;glow.scale.setScalar(.4+ob*1.6+range(p,.9,.95)*3);
+
+  renderer.render(scene,camera);
+}
+requestAnimationFrame(frame);
+})();
+</script>
+
+<script src="js/site.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>
