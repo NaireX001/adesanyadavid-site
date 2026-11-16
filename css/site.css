@@ -1,3 +1,5 @@
+/* frame-ready */
+:root{--vh:1vh;--stickyTop:0px}
 /* ===== Adesanya David — shared styles ===== */
 :root{--ink:#050505;--ink2:#0b0a09;--line:rgba(255,255,255,.09);--silver:#dcdde1;--dim:#9a9ba1;--mute:#6d6e73;--gold:#f0b43c;--gold2:#ffd27a;--goldd:#b97a12;
 --serif:"Cormorant Garamond",Georgia,serif;--sans:"Manrope",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;--pad:clamp(18px,4vw,64px)}
@@ -66,7 +68,7 @@ body.diving .brand,body.diving .ncta{opacity:0;pointer-events:none}
 .split .ln:nth-child(2)>span{transition-delay:.08s}.split .ln:nth-child(3)>span{transition-delay:.16s}.split .ln:nth-child(4)>span{transition-delay:.24s}
 
 /* the closing call to action (shared) */
-.end{position:relative;text-align:center;min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:120px var(--pad);border-top:1px solid var(--line);overflow:hidden}
+.end{position:relative;text-align:center;min-height:calc(var(--vh)*90);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:120px var(--pad);border-top:1px solid var(--line);overflow:hidden}
 .end::before{content:"";position:absolute;inset:0;background:radial-gradient(40vw 30vw at 50% 55%,rgba(240,180,60,.09),transparent 70%);pointer-events:none}
 .end h3{font-family:var(--serif);font-weight:500;font-size:clamp(46px,8vw,128px);line-height:.95;margin-bottom:34px}
 .end .eyebrow{justify-content:center}
@@ -106,7 +108,7 @@ body.diving .brand,body.diving .ncta{opacity:0;pointer-events:none}
 .bk.next .bk-spine,.bk.next .bk-pages,.bk.next .bk-page{display:none}
 
 /* inner page hero (split, photo on the right) */
-.phero{position:relative;min-height:100vh;display:flex;align-items:center;padding:120px var(--pad) 80px;overflow:hidden}
+.phero{position:relative;min-height:calc(var(--vh)*100);display:flex;align-items:center;padding:120px var(--pad) 80px;overflow:hidden}
 .phero .photo{position:absolute;top:0;right:0;bottom:0;width:50%}
 .phero .photo img{width:100%;height:100%;object-fit:cover;object-position:50% 20%;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 34%);mask-image:linear-gradient(90deg,transparent 0,#000 34%);transform:scale(1.1);transition:transform 2.2s cubic-bezier(.2,.7,.2,1)}
 .phero.in .photo img{transform:scale(1)}
@@ -164,7 +166,7 @@ body{font-family:var(--sans)}
 .hl,.ch h2,.solve h1,.phero h1,.ph2,.proof-h,.hs-head h2,.shelf-head h2,.end h3,.cform-h,.foot-word,.motto,.pull,.clockbig,.ph3,.ld-mk+*{font-family:var(--serif);font-weight:400;letter-spacing:-.025em}
 .hl{font-size:clamp(34px,6vw,104px)!important;line-height:1.02}
 .ch h2{font-size:clamp(26px,3.6vw,54px)!important;line-height:1.18}
-.solve h1{font-size:clamp(28px,min(4vw,6vh),62px)!important;line-height:1.1}
+.solve h1{font-size:clamp(28px,min(4vw,calc(var(--vh)*6)),62px)!important;line-height:1.1}
 .phero h1{font-size:clamp(40px,5.8vw,92px);line-height:1.04}
 .ph2,.proof-h,.hs-head h2,.shelf-head h2,.cform-h{font-size:clamp(34px,4.4vw,70px);line-height:1.08}
 .end h3{font-size:clamp(40px,6.6vw,108px);line-height:1.02}
@@ -179,3 +181,69 @@ body{font-family:var(--sans)}
 /* Body */
 p,li,input,select,textarea,.btn,.link,.nl,.ncta,.lead,.svc-p{font-family:var(--sans)}
 .lead,.svc-p,.where-p,.by-p,.two p,.hs-p,.end-p,.pains span.s{font-weight:300}
+
+/* ===== Phones: page headers keep the desktop arrangement, sections sit closer together ===== */
+@media (max-width:900px){
+  /* Home · "What I solve" header: text left, photo standing on the right */
+  .solve .photo{width:47%!important;opacity:1!important}
+  .solve .photo img{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 28%)!important;mask-image:linear-gradient(90deg,transparent 0,#000 28%)!important;object-position:58% 18%}
+  .solve .copy{width:58%!important;padding:78px 0 24px var(--pad)!important;justify-content:center!important}
+  .solve .eyebrow{font-size:8px;margin-bottom:12px;gap:8px}.solve .eyebrow::before{width:16px}
+  .solve h1{font-size:clamp(21px,6.2vw,32px)!important;line-height:1.14!important;margin:6px 0 12px!important}
+  .solve .lead{font-size:12px!important;line-height:1.55!important}
+  .solve .lead2{display:none}
+  .pains-t{font-size:8px;margin-top:14px}
+  .pains{margin:6px 0 16px!important}
+  .pains li{grid-template-columns:22px 1fr!important;padding:7px 0!important;gap:2px 6px!important}
+  .pains li .mono{font-size:8px;padding-top:3px}
+  .pains b{font-size:11.5px!important;line-height:1.3}
+  .pains span.s{display:none!important}
+  .solve .actions{gap:8px}
+  .solve .actions .btn{padding:10px 14px;font-size:11.5px}
+  .solve .tag{top:auto!important;bottom:20px!important;right:12px!important}
+  .solve .tag b{font-size:17px}.solve .tag span{font-size:7.5px}
+
+  /* About · hero: text left, photo on the right */
+  .phero.has-photo{align-items:center;min-height:100vh;padding:90px var(--pad) 60px}
+  .phero.has-photo .photo{width:47%;opacity:1}
+  .phero.has-photo .photo img{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%);mask-image:linear-gradient(90deg,transparent 0,#000 30%);object-position:55% 20%}
+  .phero.has-photo .copy{max-width:57%;margin-top:0}
+  .phero.has-photo h1{font-size:clamp(24px,7.2vw,38px)!important;line-height:1.1!important;margin-bottom:16px}
+  .phero.has-photo .lead{font-size:12.5px;line-height:1.6}
+  .phero.has-photo .scrollcue{display:none}
+
+  /* Services & Books heroes: same left-aligned text layout, less empty space */
+  .phero:not(.has-photo){min-height:auto;padding:110px var(--pad) 40px;align-items:flex-start}
+  .phero:not(.has-photo) .copy{margin-top:0}
+  .phero h1{font-size:clamp(34px,10vw,52px)}
+
+  /* tighter spacing between sections */
+  section.blk{padding:56px var(--pad)}
+  .end{min-height:auto;padding:80px var(--pad) 70px}
+  .end h3{margin-bottom:22px}
+  .foot{padding:56px var(--pad) 22px}
+  .cform-wrap{padding-bottom:44px;margin-bottom:40px;gap:28px}
+  .foot-word{margin-bottom:34px}
+  .foot-grid{gap:26px;padding-bottom:30px}
+  .ph2,.proof-h,.cform-h{margin-bottom:26px}
+  .pull,.motto{margin-top:44px}
+  .eyebrow{margin-bottom:16px}
+}
+
+/* ===== Phones: header photos take ~78% of the screen, text sits on a soft see-through dark panel ===== */
+@media (max-width:900px){
+  .solve .photo{width:78%!important}
+  .solve .photo img{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 16%)!important;mask-image:linear-gradient(90deg,transparent 0,#000 16%)!important;object-position:62% 16%!important}
+  .solve .copy{width:66%!important;padding-right:18px!important;background:linear-gradient(90deg,rgba(5,5,5,.9) 0,rgba(5,5,5,.78) 55%,rgba(5,5,5,.35) 88%,rgba(5,5,5,0) 100%)}
+  .solve .copy p,.solve .copy b{text-shadow:0 1px 10px rgba(0,0,0,.6)}
+
+  .phero.has-photo .photo{width:78%}
+  .phero.has-photo .photo img{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 16%);mask-image:linear-gradient(90deg,transparent 0,#000 16%);object-position:60% 20%}
+  .phero.has-photo::before{content:"";position:absolute;top:0;bottom:0;left:0;width:72%;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(5,5,5,.9) 0,rgba(5,5,5,.75) 55%,rgba(5,5,5,.3) 88%,rgba(5,5,5,0) 100%)}
+  .phero.has-photo .copy{max-width:62%;position:relative;z-index:2}
+  .phero.has-photo .lead{text-shadow:0 1px 10px rgba(0,0,0,.6)}
+}
+@media (max-width:900px){
+  .solve .photo img{object-position:40% 14%!important}
+  .phero.has-photo .photo img{object-position:30% 20%}
+}

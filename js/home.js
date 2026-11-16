@@ -3,7 +3,8 @@
 const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));
 const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v)),range=(p,a,b)=>clamp((p-a)/(b-a));
 const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
-const prog=el=>{const r=el.getBoundingClientRect();return clamp(-r.top/(el.offsetHeight-innerHeight))};
+const FR=()=>window.FRAME||{h:innerHeight,top:0};
+const prog=el=>{const r=el.getBoundingClientRect(),F=FR();return clamp((F.top-r.top)/(el.offsetHeight-F.h))};
 
 /* 01 · about teaser */
 const ab=$('#about'),abIn=$('.ab-in');
@@ -14,7 +15,7 @@ const words=[];$$('.ab-lines p').forEach(p=>{
 
 /* 02 · services track */
 const hs=$('#services'),track=$('.hs-track'),bar=$('.hs-bar i'),cards=$$('.card');
-function sizeHs(){const extra=Math.max(0,track.scrollWidth-innerWidth);hs.style.height=(innerHeight+extra)+'px';hs.dataset.extra=extra}
+function sizeHs(){const extra=Math.max(0,track.scrollWidth-innerWidth);hs.style.height=(FR().h+extra)+'px';hs.dataset.extra=extra}
 cards.forEach(c=>c.addEventListener('click',()=>{if(matchMedia('(hover:none)').matches&&!c.classList.contains('all'))c.classList.toggle('flip')}));
 
 /* 03 · shelf */

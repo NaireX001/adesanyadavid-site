@@ -8,15 +8,15 @@ const cur=document.createElement('div');cur.className='curtain';
 cur.innerHTML='<div class="cv"></div><div class="cl"></div><div class="cw gold"></div>';document.body.appendChild(cur);
 requestAnimationFrame(()=>requestAnimationFrame(()=>cur.classList.add('hide')));
 addEventListener('pageshow',e=>{if(e.persisted){cur.classList.remove('go');cur.classList.add('hide')}});
-const norm=p=>{p=(p||'/').replace(/\/index\.html$/,'/').replace(/\.html$/,'');return p===''?'/':p};
+const norm=p=>{const seg=(p||'/').split('#')[0].split('/').pop().replace(/\.html$/,'');return seg===''||seg==='index'?'index':seg};
 function goTo(id,instant){const t=document.getElementById(id);if(!t)return;
-  const run=()=>t.scrollIntoView({behavior:instant?'auto':'smooth',block:'start'});
+  const run=()=>{if(id==='handover'&&window.diveTo){window.diveTo(.975);return}t.scrollIntoView({behavior:instant?'auto':'smooth',block:'start'})};
   if(document.body.classList.contains('locked')){const iv=setInterval(()=>{if(!document.body.classList.contains('locked')){clearInterval(iv);setTimeout(run,60)}},100)}else run()}
 document.addEventListener('click',e=>{
   const a=e.target.closest('a[href]');if(!a||a.target==='_blank'||e.metaKey||e.ctrlKey)return;
   const h=a.getAttribute('href');
   if(h.startsWith('#')){e.preventDefault();if(h==='#top'){scrollTo({top:0,behavior:'smooth'});return}goTo(h.slice(1));const mm=document.querySelector('.mmenu.open');if(mm){mm.classList.remove('open');const b=document.querySelector('.burger');if(b)b.textContent='Menu'}return}
-  if(!h.startsWith('/')||h.startsWith('//'))return;
+  if(!((h.startsWith('/')&&!h.startsWith('//'))||/^[\w-]+\.html$/.test(h)))return;
   e.preventDefault();
   const go=a.dataset.go;
   if(norm(h)===norm(location.pathname)){if(go)goTo(go,true);else scrollTo({top:0,behavior:'smooth'});return}
